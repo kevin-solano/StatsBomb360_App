@@ -148,12 +148,12 @@ def create_plot(
             linestyle="--",
         )
     elif row["type"] in ["Pass", "Shot"]:
-        type = "pass" if row["type"] == "Pass" else "shot"
+        event_type = "pass" if row["type"] == "Pass" else "shot"
         pitch.lines(
             xstart=row["location"][0],
             ystart=row["location"][1],
-            xend=row[f"{type}_end_location"][0],
-            yend=row[f"{type}_end_location"][1],
+            xend=row[f"{event_type}_end_location"][0],
+            yend=row[f"{event_type}_end_location"][1],
             ax=ax,
             comet=True,
             color="white",
@@ -162,7 +162,13 @@ def create_plot(
     return fig
 
 
-def shot_freeze_frame(shot_df, tag, home_team, away_team, keeper_cone=False):
+def shot_freeze_frame(
+    shot_df: pd.DataFrame,
+    tag: str,
+    home_team: str,
+    away_team: str,
+    keeper_cone: bool = False,
+):
     shot = shot_df[shot_df["tag"] == tag].iloc[0]
     home_color = country_colors[home_team]
     away_color = country_colors[away_team]
